@@ -81,6 +81,8 @@ extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
 }
 ```
 
+In this app we do not want automatic cell resizing since we are returning a specific size so we will need to turn automatic resizing to none. Navigate to the size inspector for the collection view and toggle **automatic** resizing to **none** for the ```Estimate Size``` option.
+
 
 
 
