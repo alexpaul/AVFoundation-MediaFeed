@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5701D41E24425CC300752517 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5701D41D24425CC300752517 /* AppDelegate.swift */; };
 		5701D42024425CC300752517 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5701D41F24425CC300752517 /* SceneDelegate.swift */; };
-		5701D42224425CC300752517 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5701D42124425CC300752517 /* ViewController.swift */; };
+		5701D42224425CC300752517 /* MediaFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5701D42124425CC300752517 /* MediaFeedViewController.swift */; };
 		5701D42524425CC300752517 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5701D42324425CC300752517 /* Main.storyboard */; };
 		5701D42724425CC400752517 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5701D42624425CC400752517 /* Assets.xcassets */; };
 		5701D42A24425CC400752517 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5701D42824425CC400752517 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		5701D41A24425CC300752517 /* AVFoundation-MediaFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AVFoundation-MediaFeed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5701D41D24425CC300752517 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5701D41F24425CC300752517 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5701D42124425CC300752517 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5701D42124425CC300752517 /* MediaFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFeedViewController.swift; sourceTree = "<group>"; };
 		5701D42424425CC300752517 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5701D42624425CC400752517 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5701D42924425CC400752517 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 			children = (
 				5701D41D24425CC300752517 /* AppDelegate.swift */,
 				5701D41F24425CC300752517 /* SceneDelegate.swift */,
-				5701D42124425CC300752517 /* ViewController.swift */,
+				5701D42124425CC300752517 /* MediaFeedViewController.swift */,
 				5701D42324425CC300752517 /* Main.storyboard */,
 				5701D42624425CC400752517 /* Assets.xcassets */,
 				5701D42824425CC400752517 /* LaunchScreen.storyboard */,
@@ -138,7 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5701D42224425CC300752517 /* ViewController.swift in Sources */,
+				5701D42224425CC300752517 /* MediaFeedViewController.swift in Sources */,
 				5701D41E24425CC300752517 /* AppDelegate.swift in Sources */,
 				5701D42024425CC300752517 /* SceneDelegate.swift in Sources */,
 			);
