@@ -99,7 +99,7 @@ class HeaderView: UICollectionReusableView {
 
 Navigate to the storyboard, select the section header on the collection view and change the class to **HeaderView** in the identity inspector. 
 
-Implement viewForSupplementaryElementKind() and return the header view 
+Implement viewForSupplementaryElementKind() dataSource method and return the header view 
 
 ```swift 
 func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -107,6 +107,14 @@ func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElem
     fatalError("could not cast to HeaderView")
   }
   return headerView
+}
+```
+
+Implement the referenceSizeForHeaderInSection() delegate method to return a size for the header view 
+
+```swift 
+func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+  return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height * 0.40)
 }
 ```
 
