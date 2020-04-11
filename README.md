@@ -118,7 +118,60 @@ func collectionView(_ collectionView: UICollectionView, layout collectionViewLay
 }
 ```
 
+## 6. The model for our app
 
+Creete a new file. It will be a Swift file and name it **MediaObjet** 
+
+```swift 
+struct MediaObject {
+  let imageData: Data?
+  let videoURL: String?
+  let caption: String?
+  let createdDate = Date()
+  let id = UUID().uuidString
+}
+```
+
+## 7. Data for MediaFeedViewController 
+
+Add a private variable array to the view contorller called **mediaObjects**
+
+```swift 
+private var mediaObjects = [MediaObject]() {
+  didSet {
+    collectionView.reloadData()
+  }
+}
+```
+
+Update the cellForRow() to now return ```return mediaObjects.count```
+
+
+## 8. Configuring UIImagePickerController to capture images and video 
+
+We have seen UIImagePickerController before but today we will take its configuration a bit further and add video capture capabilites. 
+
+#### Add a UIImagePickerController lazy property to the MediaFeedViewController
+
+```swift 
+private lazy var imagePickerController: UIImagePickerController = {
+  let mediaTypes = UIImagePickerController.availableMediaTypes(for: .savedPhotosAlbum) ?? ["kUTTypeImage"]
+  let imagePicker = UIImagePickerController()
+  imagePicker.mediaTypes = mediaTypes
+  imagePicker.delegate = self
+  return imagePicker
+}()
+```
+
+Conform to the UIImagePickerControllerDelegate
+
+```swift 
+extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    
+  }
+}
+```
 
 
 
