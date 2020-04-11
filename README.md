@@ -47,7 +47,41 @@ The scrolling direction of our collection view will remain vertical.
 
 We will be using a **section header** on our collection view so set the attribute to the left of the **Accessories** option in the attributes inspector on the collection view. Select the newly added reusable view and give it a reuse identifier of **headerView** 
 
-At this point all our attributes are set, let's now connect this scene's elements to the **MediaFeedViewController** 
+At this point all our attributes are set, let's now connect this scene's elements to the **MediaFeedViewController** Option-click on the MediaFeedViewController to bring up the assistant editor. 
+
+Control-drag from the collection view to the MediaFeedViewController and make the outlet connection, name it ```collectionView```. Control-drag the two UIBarButtonItem 's and name the outlets ```videoButton``` and ```photoLibraryButton``` respectively. Control-drag from the two UIBarButtonItem 's to create IBAction's (videoButtonPressed() and photoLibraryButtonPressed())
+
+Set the collection view's dataSource and delegate in viewDidLoad(). Write an extension to conform to the dataSource and delegate outside the class. 
+
+#### Collection View extensions for the dataSource and delegate 
+
+```swift 
+extension MediaFeedViewController: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 20
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mediaCell", for: indexPath)
+    return cell
+  }
+}
+
+extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let maxSize: CGSize = UIScreen.main.bounds.size
+    let itemWidth: CGFloat = maxSize.width * 0.80
+    let itemHeight: CGFloat = itemWidth
+    return CGSize(width: itemWidth, height: itemHeight)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+  }
+}
+```
+
+
 
 
 
