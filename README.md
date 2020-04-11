@@ -84,6 +84,31 @@ extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
 In this app we do not want automatic cell resizing since we are returning a specific size so we will need to turn automatic resizing to none. Navigate to the size inspector for the collection view and toggle **automatic** resizing to **none** for the ```Estimate Size``` option.
 
 
+## 5. Supplementary view 
+
+We will be adding a custom header view to our collection view. Create a new file. This file will be a subclass of **UICollectionReusableView** , name the file **HeaderView** 
+
+```swift 
+class HeaderView: UICollectionReusableView {
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    backgroundColor = .systemYellow
+  }
+}
+```
+
+Navigate to the storyboard, select the section header on the collection view and change the class to **HeaderView** in the identity inspector. 
+
+Implement viewForSupplementaryElementKind() and return the header view 
+
+```swift 
+func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+  guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath) as? HeaderView else {
+    fatalError("could not cast to HeaderView")
+  }
+  return headerView
+}
+```
 
 
 
