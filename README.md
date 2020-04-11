@@ -173,6 +173,23 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
 }
 ```
 
+#### Disable the video button if not supported on the current running device 
+
+```swift 
+// disable the video is not supported on the current device, e.g the simulator
+if !(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+  videoButton.isEnabled = false
+}
+```
+
+#### Access the user's saved photos album if the photoLibrary button was selected
+
+```swift 
+@IBAction func photoLibraryButtonPressed(_ sender: UIBarButtonItem) {
+  imagePickerController.sourceType = .savedPhotosAlbum
+  present(imagePickerController, animated: true)
+}
+```
 
 
 
