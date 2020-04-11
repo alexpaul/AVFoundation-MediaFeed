@@ -14,6 +14,8 @@
 		5701D42724425CC400752517 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5701D42624425CC400752517 /* Assets.xcassets */; };
 		5701D42A24425CC400752517 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5701D42824425CC400752517 /* LaunchScreen.storyboard */; };
 		5701D4322442692000752517 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5701D4312442692000752517 /* HeaderView.swift */; };
+		5701D43424426D1C00752517 /* MediaObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5701D43324426D1C00752517 /* MediaObject.swift */; };
+		57541ECC244279D700957CA2 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57541ECB244279D700957CA2 /* MediaCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		5701D42924425CC400752517 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5701D42B24425CC400752517 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5701D4312442692000752517 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		5701D43324426D1C00752517 /* MediaObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaObject.swift; sourceTree = "<group>"; };
+		57541ECB244279D700957CA2 /* MediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 				5701D41D24425CC300752517 /* AppDelegate.swift */,
 				5701D41F24425CC300752517 /* SceneDelegate.swift */,
 				5701D42124425CC300752517 /* MediaFeedViewController.swift */,
+				5701D43324426D1C00752517 /* MediaObject.swift */,
+				57541ECB244279D700957CA2 /* MediaCell.swift */,
 				5701D4312442692000752517 /* HeaderView.swift */,
 				5701D42324425CC300752517 /* Main.storyboard */,
 				5701D42624425CC400752517 /* Assets.xcassets */,
@@ -144,6 +150,8 @@
 				5701D42224425CC300752517 /* MediaFeedViewController.swift in Sources */,
 				5701D41E24425CC300752517 /* AppDelegate.swift in Sources */,
 				5701D42024425CC300752517 /* SceneDelegate.swift in Sources */,
+				5701D43424426D1C00752517 /* MediaObject.swift in Sources */,
+				57541ECC244279D700957CA2 /* MediaCell.swift in Sources */,
 				5701D4322442692000752517 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

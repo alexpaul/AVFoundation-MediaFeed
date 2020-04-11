@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum MediaSelected {
+  case image, video
+}
+
 class MediaFeedViewController: UIViewController {
 
   @IBOutlet weak var collectionView: UICollectionView!
@@ -15,11 +19,32 @@ class MediaFeedViewController: UIViewController {
   @IBOutlet weak var videoButton: UIBarButtonItem!
   @IBOutlet weak var photoLibraryButton: UIBarButtonItem!
   
+  private var mediaObjects = [MediaObject]() {
+    didSet {
+      collectionView.reloadData()
+    }
+  }
+  
+  private lazy var imagePickerController: UIImagePickerController = {
+    let mediaTypes = UIImagePickerController.availableMediaTypes(for: .savedPhotosAlbum) ?? ["kUTTypeImage"]
+    let imagePicker = UIImagePickerController()
+    imagePicker.mediaTypes = mediaTypes
+    imagePicker.delegate = self
+    return imagePicker
+  }()
+  
+  private var mediaSelected = MediaSelected.image
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     collectionView.dataSource = self
     collectionView.delegate = self
+    
+    // disable the video is not supported on the current device, e.g the simulator
+    if !(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+      videoButton.isEnabled = false
+    }
   }
   
   @IBAction func videoButtonPressed(_ sender: UIBarButtonItem) {
@@ -28,17 +53,22 @@ class MediaFeedViewController: UIViewController {
   
   
   @IBAction func photoLibraryButtonPressed(_ sender: UIBarButtonItem) {
-    
+    imagePickerController.sourceType = .savedPhotosAlbum
+    present(imagePickerController, animated: true)
   }
 }
 
 extension MediaFeedViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 20
+    return mediaObjects.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mediaCell", for: indexPath)
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mediaCell", for: indexPath) as? MediaCell else {
+      fatalError("could not dequeue a MediaCell")
+    }
+    let mediaObjet = mediaObjects[indexPath.row]
+    cell.configureCell(for: mediaObjet, mediaSelected: mediaSelected)
     return cell
   }
   
@@ -67,3 +97,31 @@ extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
   }
 }
 
+
+extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    guard let mediaTypes = info[UIImagePickerController.InfoKey.mediaType] as? String else {
+      return
+    }
+    switch mediaTypes {
+    case "public.image":
+      print("image selected")
+      
+      mediaSelected = .image
+      
+      if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+        let imageData = originalImage.jpegData(compressionQuality: 1.0) {
+        let mediaObject = MediaObject(imageData: imageData, videoURL: nil, caption: nil)
+        mediaObjects.append(mediaObject)
+      }
+      
+    case "public.movie":
+      print("video selected")
+      
+      mediaSelected = .video
+    default:
+      print("unsupported media type")
+    }
+    picker.dismiss(animated: true)
+  }
+}
