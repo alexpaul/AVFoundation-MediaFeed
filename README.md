@@ -118,9 +118,154 @@ func collectionView(_ collectionView: UICollectionView, layout collectionViewLay
 }
 ```
 
+## 6. The model for our app
+
+Creete a new file. It will be a Swift file and name it **MediaObjet** 
+
+```swift 
+struct MediaObject {
+  let imageData: Data?
+  let videoURL: String?
+  let caption: String?
+  let createdDate = Date()
+  let id = UUID().uuidString
+}
+```
+
+## 7. Data for MediaFeedViewController 
+
+Add a private variable array to the view contorller called **mediaObjects**
+
+```swift 
+private var mediaObjects = [MediaObject]() {
+  didSet {
+    collectionView.reloadData()
+  }
+}
+```
+
+Update the cellForRow() to now return ```return mediaObjects.count```
+
+
+## 8. Configuring UIImagePickerController to capture images and video 
+
+We have seen UIImagePickerController before but today we will take its configuration a bit further and add video capture capabilites. 
+
+#### Add a UIImagePickerController lazy property to the MediaFeedViewController
+
+```swift 
+private lazy var imagePickerController: UIImagePickerController = {
+  let mediaTypes = UIImagePickerController.availableMediaTypes(for: .savedPhotosAlbum) ?? ["kUTTypeImage"]
+  let imagePicker = UIImagePickerController()
+  imagePicker.mediaTypes = mediaTypes
+  imagePicker.delegate = self
+  return imagePicker
+}()
+```
+
+Conform to the UIImagePickerControllerDelegate
+
+```swift 
+extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    
+  }
+}
+```
+
+#### Disable the video button if not supported on the current running device 
+
+```swift 
+// disable the video is not supported on the current device, e.g the simulator
+if !(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+  videoButton.isEnabled = false
+}
+```
 
 
 
+#### Access the user's saved photos album if the photoLibrary button was selected
+
+```swift 
+@IBAction func photoLibraryButtonPressed(_ sender: UIBarButtonItem) {
+  imagePickerController.sourceType = .savedPhotosAlbum
+  present(imagePickerController, animated: true)
+}
+```
+
+#### Updated didFinishPickingMediaWithInfo methood 
+
+Supported media types are ```public.video``` and ```public.image``` 
+
+```swift 
+extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    guard let mediaTypes = info[UIImagePickerController.InfoKey.mediaType] as? String else {
+      return
+    }
+    switch mediaTypes {
+    case "public.image":
+      print("image selected")
+      
+      if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+        let imageData = originalImage.jpegData(compressionQuality: 1.0) {
+        let mediaObject = MediaObject(imageData: imageData, videoURL: nil, caption: nil)
+        mediaObjects.append(mediaObject)
+      }
+      
+    case "public.movie":
+      print("video selected")
+    default:
+      print("unsupported media type")
+    }
+    picker.dismiss(animated: true)
+  }
+}
+```
+
+#### Keep track of selected media in the MediaFeedViewController 
+
+```swift
+enum MediaSelected {
+  case image, video
+}
+
+class MediaFeedViewController {}
+```
+
+```swift 
+private var mediaSelected = MediaSelected.image
+```
 
 
+## 9. Custom cell for collection view 
+
+```swift 
+class MediaCell: UICollectionViewCell {
+  @IBOutlet weak var mediaImageView: UIImageView!
+ 
+  public func configureCell(for mediaObject: MediaObject, mediaSelected: MediaSelected) {
+    if mediaSelected == .image {
+      if let imageData = mediaObject.imageData {
+        mediaImageView.image = UIImage(data: imageData)
+      }
+    } else {
+      //
+    }
+  }
+}
+```
+
+#### Updated cellForRow() 
+
+```swift 
+func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mediaCell", for: indexPath) as? MediaCell else {
+    fatalError("could not dequeue a MediaCell")
+  }
+  let mediaObjet = mediaObjects[indexPath.row]
+  cell.configureCell(for: mediaObjet, mediaSelected: mediaSelected)
+  return cell
+}
+```
 
