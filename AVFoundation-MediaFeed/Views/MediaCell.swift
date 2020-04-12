@@ -16,6 +16,7 @@ class MediaCell: UICollectionViewCell {
   
   @IBOutlet weak var mediaImageView: UIImageView!
   @IBOutlet weak var playButtonIcon: UIImageView!
+  @IBOutlet weak var transparentView: UIView!
   
   private var mediaObject: CDMediaObject!
   
@@ -63,8 +64,10 @@ class MediaCell: UICollectionViewCell {
     setImage(for: mediaObject)
     if let _ = mediaObject.videoData { // is video
       playButtonIcon.isHidden = false
+      transparentView.isHidden = false
     } else {
       playButtonIcon.isHidden = true
+      transparentView.isHidden = true
     }
   }
 }

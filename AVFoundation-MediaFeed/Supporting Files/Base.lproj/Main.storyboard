@@ -36,9 +36,13 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="K9b-bc-uXd">
                                                     <rect key="frame" x="0.0" y="2" width="340" height="336"/>
                                                 </imageView>
+                                                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iaL-uw-IPk" userLabel="Transparent View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="340" height="340"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Y1Y-bw-y7p">
                                                     <rect key="frame" x="140" y="139" width="60" height="61.5"/>
-                                                    <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="65" id="BkN-Yi-V8g"/>
                                                         <constraint firstAttribute="width" constant="60" id="i4I-lF-FXI"/>
@@ -46,9 +50,13 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="iaL-uw-IPk" firstAttribute="top" secondItem="i71-eO-yYd" secondAttribute="top" id="Cpu-mj-YqQ"/>
                                                 <constraint firstItem="K9b-bc-uXd" firstAttribute="leading" secondItem="i71-eO-yYd" secondAttribute="leading" id="MYO-fw-x7d"/>
+                                                <constraint firstItem="iaL-uw-IPk" firstAttribute="leading" secondItem="i71-eO-yYd" secondAttribute="leading" id="PJu-8h-YFI"/>
                                                 <constraint firstItem="Y1Y-bw-y7p" firstAttribute="centerY" secondItem="i71-eO-yYd" secondAttribute="centerY" id="V1E-lM-VH1"/>
                                                 <constraint firstItem="Y1Y-bw-y7p" firstAttribute="centerX" secondItem="i71-eO-yYd" secondAttribute="centerX" id="Vw3-1c-X4Y"/>
+                                                <constraint firstAttribute="trailing" secondItem="iaL-uw-IPk" secondAttribute="trailing" id="b9h-sW-wVg"/>
+                                                <constraint firstAttribute="bottom" secondItem="iaL-uw-IPk" secondAttribute="bottom" id="cOY-QW-6Xe"/>
                                                 <constraint firstAttribute="trailing" secondItem="K9b-bc-uXd" secondAttribute="trailing" id="iFi-Hn-Kga"/>
                                                 <constraint firstAttribute="bottom" secondItem="K9b-bc-uXd" secondAttribute="bottom" id="xpH-fs-Ggx"/>
                                                 <constraint firstItem="K9b-bc-uXd" firstAttribute="top" secondItem="i71-eO-yYd" secondAttribute="top" id="zI6-qw-rld"/>
@@ -58,6 +66,7 @@
                                         <connections>
                                             <outlet property="mediaImageView" destination="K9b-bc-uXd" id="I1Y-8G-MBn"/>
                                             <outlet property="playButtonIcon" destination="Y1Y-bw-y7p" id="dS4-53-bWl"/>
+                                            <outlet property="transparentView" destination="iaL-uw-IPk" id="oWW-3e-YL2"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
