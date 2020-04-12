@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AVKit
 
 enum MediaSelected {
   case image, video
@@ -83,6 +84,19 @@ extension MediaFeedViewController: UICollectionViewDataSource {
 }
 
 extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let mediaObject = mediaObjects[indexPath.row]
+    if mediaSelected == .video {
+      guard let mediaURL = mediaObject.mediaURL else { return }
+      let player = AVPlayer(url: mediaURL)
+      let playerViewController = AVPlayerViewController()
+      playerViewController.player = player
+      present(playerViewController, animated: true) {
+        player.play()
+      }
+    }
+  }
+  
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let maxSize: CGSize = UIScreen.main.bounds.size
     let itemWidth: CGFloat = maxSize.width * 0.80
@@ -151,7 +165,7 @@ extension URL {
       let cgImage = try assetGenerator.copyCGImage(at: timestamp, actualTime: nil)
       image = UIImage(cgImage: cgImage)
     } catch {
-      
+      print("failed to generated image with error: \(error)")
     }
     return image
   }
