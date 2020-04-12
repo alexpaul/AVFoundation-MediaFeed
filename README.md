@@ -190,7 +190,7 @@ if !(UIImagePickerController.isSourceTypeAvailable(.camera)) {
 
 ```swift 
 @IBAction func photoLibraryButtonPressed(_ sender: UIBarButtonItem) {
-  imagePickerController.sourceType = .savedPhotosAlbum
+  imagePickerController.sourceType = .photoLibrary
   present(imagePickerController, animated: true)
 }
 ```
