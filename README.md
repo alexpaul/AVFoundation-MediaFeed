@@ -619,7 +619,7 @@ MediaCell refactor to add Core Data objects
 ```swift 
 ```
 
-## 15. Deleting an mediaObject 
+## 15. Deleting a mediaObject 
 
 #### Updated MediaCell
 ```swift 
