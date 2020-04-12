@@ -459,7 +459,7 @@ playRandomVideo(in: headerView)
 
 There are many ways in which we can choose to persist (save) user generated content in our app, documents directory, Firebase, iCloud....we will use Core Data. If our app gets implemented beyoind MVP in complexity and have will ultimately have object relationships, Core Data will be great in that use case. 
 
-Adding the Core Data stack to an existing app. 
+#### Adding the Core Data stack to an existing app. 
 <details>
   <summary>Add this Core Data stack to the AppDelegate</summary> 
 ```swift 
@@ -470,7 +470,7 @@ Create a new file and select Data Model in the file type dialog. Name the file *
 
 Open the MediaFeedDataModel and add an entity named **CDMediaObject**. 
 
-Add the following attributes and associated types to the CDMediaObject entity. 
+#### Add the following attributes and associated types to the CDMediaObject entity. 
 
 | Attribute | Type |
 |:------:|:------:|
