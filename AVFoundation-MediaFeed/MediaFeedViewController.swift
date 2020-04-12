@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 enum MediaSelected {
   case image, video
@@ -48,7 +49,8 @@ class MediaFeedViewController: UIViewController {
   }
   
   @IBAction func videoButtonPressed(_ sender: UIBarButtonItem) {
-    
+    imagePickerController.sourceType = .camera
+    present(imagePickerController, animated: true)
   }
   
   
@@ -111,7 +113,7 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
       
       if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
         let imageData = originalImage.jpegData(compressionQuality: 1.0) {
-        let mediaObject = MediaObject(imageData: imageData, videoURL: nil, caption: nil)
+        let mediaObject = MediaObject(imageData: imageData, mediaURL: nil, caption: nil)
         mediaObjects.append(mediaObject)
       }
       
@@ -119,9 +121,37 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
       print("video selected")
       
       mediaSelected = .video
+      
+      
+      if let mediaURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+        if let image = mediaURL.videoPreviewImage(),
+          let imageData = image.jpegData(compressionQuality: 1.0) {
+          let mediaObject = MediaObject(imageData: imageData, mediaURL: mediaURL, caption: nil)
+          mediaObjects.append(mediaObject)
+        }
+      }
+      
+      
     default:
       print("unsupported media type")
     }
     picker.dismiss(animated: true)
+  }
+}
+
+
+extension URL {
+  public func videoPreviewImage() -> UIImage? {
+    let asset = AVAsset(url: self)
+    let assetGenerator = AVAssetImageGenerator(asset: asset)
+    let timeInterval = CMTime(seconds: 1, preferredTimescale: 60)
+    var image: UIImage?
+    do {
+      let cgImage = try assetGenerator.copyCGImage(at: timeInterval, actualTime: nil)
+      image = UIImage(cgImage: cgImage)
+    } catch {
+      
+    }
+    return image
   }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 struct MediaObject {
   let imageData: Data?
-  let videoURL: String?
+  let mediaURL: URL?
   let caption: String?
   let createdDate = Date()
   let id = UUID().uuidString
