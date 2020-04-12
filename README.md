@@ -292,6 +292,94 @@ When a video is added by the user we want to show a video thumbnail preview of t
 Implement the method needed to generate this image preview via an extension on the URL class. We are doing so because we will be getting back a URL of the captured video. This URL contains the video content. We will be passing this URL to our method generating the URL and getting back a UIImage. This image will be added to the **MediaCell** 
 
 ```swift 
+extension URL {
+  public func videoPreviewImage() -> UIImage? {
+    let asset = AVAsset(url: self)
+    let assetGenerator = AVAssetImageGenerator(asset: asset)
+    let timeInterval = CMTime(seconds: 1, preferredTimescale: 60)
+    var image: UIImage?
+    do {
+      let cgImage = try assetGenerator.copyCGImage(at: timeInterval, actualTime: nil)
+      image = UIImage(cgImage: cgImage)
+    } catch {
+      
+    }
+    return image
+  }
+}
+```
+
+#### AVAsset 
+
+#### AVAssetImageGenerator 
+
+#### CMTime 
+
+#### CGImage 
+
+#### Updated didFinishPickingMediaWithInfo() 
+
+```swift 
+func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+  guard let mediaTypes = info[UIImagePickerController.InfoKey.mediaType] as? String else {
+    return
+  }
+  switch mediaTypes {
+  case "public.image":
+    print("image selected")
+
+    mediaSelected = .image
+
+    if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+      let imageData = originalImage.jpegData(compressionQuality: 1.0) {
+      let mediaObject = MediaObject(imageData: imageData, mediaURL: nil, caption: nil)
+      mediaObjects.append(mediaObject)
+    }
+
+  case "public.movie":
+    print("video selected")
+
+    mediaSelected = .video
+
+
+    if let mediaURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+      if let image = mediaURL.videoPreviewImage(),
+        let imageData = image.jpegData(compressionQuality: 1.0) {
+        let mediaObject = MediaObject(imageData: imageData, mediaURL: mediaURL, caption: nil)
+        mediaObjects.append(mediaObject)
+      }
+    }
+
+
+  default:
+    print("unsupported media type")
+  }
+  picker.dismiss(animated: true)
+}
+```
+
+#### Updated MediaCell 
+
+```swift 
+class MediaCell: UICollectionViewCell {
+  
+  @IBOutlet weak var mediaImageView: UIImageView!
+  
+  private func setImage(for mediaObject: MediaObject) {
+    if let imageData = mediaObject.imageData {
+      mediaImageView.image = UIImage(data: imageData)
+    }
+  }
+  
+  public func configureCell(for mediaObject: MediaObject, mediaSelected: MediaSelected) {
+    setImage(for: mediaObject)
+    if mediaSelected == .image {
+      //
+    } else {
+      //
+    }
+  }
+}
 ```
 
 
