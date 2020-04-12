@@ -385,4 +385,27 @@ class MediaCell: UICollectionViewCell {
 }
 ```
 
+## 12. Playing a video using AVPlayerViewController
+
+AVPlayerViewController is part of AVKit and not AVFoundation. In order to using the AVPlayerViewController we will have to import AVKit in the MediaFeedViewController. 
+
+We will check to see what media selected state our app is in when the user taps on a media object in the collection view. If the state is **.video** then we will present the AVPlayerViewController and automatically start playing the video. 
+
+Implement **didSelectItemAt()** in the collection view delegate extension 
+
+```swift 
+func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  let mediaObject = mediaObjects[indexPath.row]
+  if mediaSelected == .video {
+    guard let mediaURL = mediaObject.mediaURL else { return }
+    let player = AVPlayer(url: mediaURL)
+    let playerViewController = AVPlayerViewController()
+    playerViewController.player = player
+    present(playerViewController, animated: true) {
+      player.play()
+    }
+  }
+}
+```
+
 
