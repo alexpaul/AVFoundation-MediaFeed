@@ -410,9 +410,25 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
 
 ## 13. Playing a video in a UIView via the UIView's CALayer
 
-As we learnt back earlier in iOS developmenet every UIView is backed by a CALayer. On this CALayer we were able to make our views rounded by setting the cornerRaduis of the layer ```someView.cornerRadius = 8```. In AVFoundation we will be re-visiting CALayer, this time we will be using the CALayer of a view to render playing a video. 
+As we learnt back earlier in iOS developmenet every UIView is backed by a CALayer. On this CALayer we were able to make our views rounded by setting the cornerRaduis of the layer ```someView.layer.cornerRadius = 8```. In AVFoundation we will be re-visiting CALayer, this time we will be using the CALayer of a view to render playing a video. 
 
-In order to add the video to the view's layer we first create an AVPlayerLyer object that takes an AVPlayer in its' initializer. We set the AVPlayerLayer's frame and videoGravity. After configuring the AVPlayerLayer we pass it to the view's layer as a subLayer (we would say adding a subview in regards to UIView). 
+In order to add the video to the view's layer we first create an AVPlayerLayer, also a CALayer object, this object that takes an AVPlayer in its' initializer. 
+
+```swift
+let playerLayer = AVPlayerLayer(player: player)
+```
+
+We set the AVPlayerLayer's **frame** and **videoGravity**. 
+
+videoGravity: aspect ratio of video 
+
+After configuring the AVPlayerLayer we pass it to the view's layer as a subLayer (we would say adding a subview in regards to UIView). 
+
+```swift
+view.layer.addSublayer(playerLayer)
+```
+
+Full method implementation 
 
 ```swift 
 func playRandomVideo(in view: UIView) {
