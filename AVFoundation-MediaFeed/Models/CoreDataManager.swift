@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CoreDataManager {
   private init() {}
@@ -17,7 +18,7 @@ class CoreDataManager {
   
   private var mediaObjects = [CDMediaObject]()
   
-  public func createMediaObject(mediaURL: URL? = nil, imageData: Data) {
+  public func createMediaObject(mediaURL: URL? = nil, imageData: Data) -> CDMediaObject {
     let mediaObject = CDMediaObject(entity: CDMediaObject.entity(), insertInto: context)
     mediaObject.createdDate = Date()
     mediaObject.imageData = imageData
@@ -28,6 +29,7 @@ class CoreDataManager {
     } catch {
       print("failed to create media object with error: \(error)")
     }
+    return mediaObject
   }
   
   public func fetchMediaObjects() -> [CDMediaObject] {

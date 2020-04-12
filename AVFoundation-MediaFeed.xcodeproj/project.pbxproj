@@ -17,9 +17,9 @@
 		5701D43424426D1C00752517 /* MediaObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5701D43324426D1C00752517 /* MediaObject.swift */; };
 		57541ECC244279D700957CA2 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57541ECB244279D700957CA2 /* MediaCell.swift */; };
 		57541ED224436CD700957CA2 /* MediaFeedDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 57541ED024436CD700957CA2 /* MediaFeedDataModel.xcdatamodeld */; };
-		57541ED524436D5100957CA2 /* CDMediaObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57541ED324436D5100957CA2 /* CDMediaObject+CoreDataClass.swift */; };
-		57541EE2244370A600957CA2 /* CDMediaObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57541EE1244370A600957CA2 /* CDMediaObject+CoreDataProperties.swift */; };
 		57541EE4244370D200957CA2 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57541EE3244370D200957CA2 /* CoreDataManager.swift */; };
+		57541EE7244375A300957CA2 /* CDMediaObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57541EE5244375A300957CA2 /* CDMediaObject+CoreDataClass.swift */; };
+		57541EE8244375A300957CA2 /* CDMediaObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57541EE6244375A300957CA2 /* CDMediaObject+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,9 +35,9 @@
 		5701D43324426D1C00752517 /* MediaObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaObject.swift; sourceTree = "<group>"; };
 		57541ECB244279D700957CA2 /* MediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
 		57541ED124436CD700957CA2 /* MediaFeedDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MediaFeedDataModel.xcdatamodel; sourceTree = "<group>"; };
-		57541ED324436D5100957CA2 /* CDMediaObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDMediaObject+CoreDataClass.swift"; sourceTree = "<group>"; };
-		57541EE1244370A600957CA2 /* CDMediaObject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDMediaObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		57541EE3244370D200957CA2 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		57541EE5244375A300957CA2 /* CDMediaObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDMediaObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		57541EE6244375A300957CA2 /* CDMediaObject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDMediaObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,9 +82,9 @@
 		57541ED724436D6400957CA2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				57541EE1244370A600957CA2 /* CDMediaObject+CoreDataProperties.swift */,
+				57541EE5244375A300957CA2 /* CDMediaObject+CoreDataClass.swift */,
+				57541EE6244375A300957CA2 /* CDMediaObject+CoreDataProperties.swift */,
 				5701D43324426D1C00752517 /* MediaObject.swift */,
-				57541ED324436D5100957CA2 /* CDMediaObject+CoreDataClass.swift */,
 				57541ED024436CD700957CA2 /* MediaFeedDataModel.xcdatamodeld */,
 				57541EE3244370D200957CA2 /* CoreDataManager.swift */,
 			);
@@ -193,13 +193,13 @@
 			files = (
 				5701D42224425CC300752517 /* MediaFeedViewController.swift in Sources */,
 				5701D41E24425CC300752517 /* AppDelegate.swift in Sources */,
-				57541ED524436D5100957CA2 /* CDMediaObject+CoreDataClass.swift in Sources */,
-				57541EE2244370A600957CA2 /* CDMediaObject+CoreDataProperties.swift in Sources */,
+				57541EE8244375A300957CA2 /* CDMediaObject+CoreDataProperties.swift in Sources */,
 				5701D42024425CC300752517 /* SceneDelegate.swift in Sources */,
 				5701D43424426D1C00752517 /* MediaObject.swift in Sources */,
 				57541ECC244279D700957CA2 /* MediaCell.swift in Sources */,
 				57541ED224436CD700957CA2 /* MediaFeedDataModel.xcdatamodeld in Sources */,
 				57541EE4244370D200957CA2 /* CoreDataManager.swift in Sources */,
+				57541EE7244375A300957CA2 /* CDMediaObject+CoreDataClass.swift in Sources */,
 				5701D4322442692000752517 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,13 +12,13 @@ class MediaCell: UICollectionViewCell {
   
   @IBOutlet weak var mediaImageView: UIImageView!
   
-  private func setImage(for mediaObject: MediaObject) {
+  private func setImage(for mediaObject: CDMediaObject) {
     if let imageData = mediaObject.imageData {
       mediaImageView.image = UIImage(data: imageData)
     }
   }
   
-  public func configureCell(for mediaObject: MediaObject, mediaSelected: MediaSelected) {
+  public func configureCell(for mediaObject: CDMediaObject, mediaSelected: MediaSelected) {
     setImage(for: mediaObject)
     if mediaSelected == .image {
       //

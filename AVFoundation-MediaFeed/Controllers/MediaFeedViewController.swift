@@ -21,7 +21,7 @@ class MediaFeedViewController: UIViewController {
   @IBOutlet weak var videoButton: UIBarButtonItem!
   @IBOutlet weak var photoLibraryButton: UIBarButtonItem!
   
-  private var mediaObjects = [MediaObject]() {
+  private var mediaObjects = [CDMediaObject]() {
     didSet {
       collectionView.reloadData()
     }
@@ -47,6 +47,12 @@ class MediaFeedViewController: UIViewController {
     if !(UIImagePickerController.isSourceTypeAvailable(.camera)) {
       videoButton.isEnabled = false
     }
+    
+    fetchMediaObjects()
+  }
+  
+  private func fetchMediaObjects() {
+    mediaObjects = CoreDataManager.shared.fetchMediaObjects()
   }
   
   func playRandomVideo(in view: UIView) {
@@ -147,8 +153,13 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
       
       if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
         let imageData = originalImage.jpegData(compressionQuality: 1.0) {
-        let mediaObject = MediaObject(imageData: imageData, mediaURL: nil, caption: nil)
+        
+        
+        //let mediaObject = MediaObject(imageData: imageData, mediaURL: nil, caption: nil)
+        let mediaObject = CoreDataManager.shared.createMediaObject(imageData: imageData)
         mediaObjects.append(mediaObject)
+        
+        
       }
       
     case "public.movie":
@@ -160,8 +171,13 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
       if let mediaURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
         if let image = mediaURL.videoPreviewImage(),
           let imageData = image.jpegData(compressionQuality: 1.0) {
-          let mediaObject = MediaObject(imageData: imageData, mediaURL: mediaURL, caption: nil)
+          
+          
+          //let mediaObject = MediaObject(imageData: imageData, mediaURL: mediaURL, caption: nil)
+          let mediaObject = CoreDataManager.shared.createMediaObject(imageData: imageData)
           mediaObjects.append(mediaObject)
+          
+          
         }
       }
       
