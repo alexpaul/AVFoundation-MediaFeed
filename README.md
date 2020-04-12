@@ -410,9 +410,25 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
 
 ## 13. Playing a video in a UIView via the UIView's CALayer
 
-As we learnt back earlier in iOS developmenet every UIView is backed by a CALayer. On this CALayer we were able to make our views rounded by setting the cornerRaduis of the layer ```someView.cornerRadius = 8```. In AVFoundation we will be re-visiting CALayer, this time we will be using the CALayer of a view to render playing a video. 
+As we learnt back earlier in iOS developmenet every UIView is backed by a CALayer. On this CALayer we were able to make our views rounded by setting the cornerRaduis of the layer ```someView.layer.cornerRadius = 8```. In AVFoundation we will be re-visiting CALayer, this time we will be using the CALayer of a view to render playing a video. 
 
-In order to add the video to the view's layer we first create an AVPlayerLyer object that takes an AVPlayer in its' initializer. We set the AVPlayerLayer's frame and videoGravity. After configuring the AVPlayerLayer we pass it to the view's layer as a subLayer (we would say adding a subview in regards to UIView). 
+In order to add the video to the view's layer we first create an AVPlayerLayer, also a CALayer object, this object that takes an AVPlayer in its' initializer. 
+
+```swift
+let playerLayer = AVPlayerLayer(player: player)
+```
+
+We set the AVPlayerLayer's **frame** and **videoGravity**. 
+
+videoGravity: aspect ratio of video 
+
+After configuring the AVPlayerLayer we pass it to the view's layer as a subLayer (we would say adding a subview in regards to UIView). 
+
+```swift
+view.layer.addSublayer(playerLayer)
+```
+
+Full method implementation 
 
 ```swift 
 func playRandomVideo(in view: UIView) {
@@ -438,5 +454,118 @@ As we will be randomly playing a video in the collection view's header view add 
 ```swift 
 playRandomVideo(in: headerView)
 ```
+
+## 14. Persisting user generated media content 
+
+There are many ways in which we can choose to persist (save) user generated content in our app, documents directory, Firebase, iCloud....we will use Core Data. If our app gets implemented beyond MVP in complexity we will ultimately have object relationships, Core Data will be great in that use case. 
+
+#### Adding the Core Data stack to an existing app. 
+<details>
+  <summary>Add this Core Data stack to the AppDelegate</summary> 
+  
+```swift 
+import CoreData
+
+// MARK: - Core Data stack
+lazy var persistentContainer: NSPersistentContainer = {
+    /*
+     The persistent container for the application. This implementation
+     creates and returns a container, having loaded the store for the
+     application to it. This property is optional since there are legitimate
+     error conditions that could cause the creation of the store to fail.
+    */
+    let container = NSPersistentContainer(name: "AVFoundation-MediaFeed")
+    container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        if let error = error as NSError? {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+
+            /*
+             Typical reasons for an error here include:
+             * The parent directory does not exist, cannot be created, or disallows writing.
+             * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+             * The device is out of space.
+             * The store could not be migrated to the current model version.
+             Check the error message to determine what the actual problem was.
+             */
+            fatalError("Unresolved error \(error), \(error.userInfo)")
+        }
+    })
+    return container
+}()
+
+// MARK: - Core Data Saving support
+func saveContext () {
+    let context = persistentContainer.viewContext
+    if context.hasChanges {
+        do {
+            try context.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+}
+```
+
+</details>
+
+Create a new file and select Data Model in the file choice template dialog beneath Core Data. Name the file **MediaFeedDataModel** 
+
+Open the MediaFeedDataModel and add an entity named **CDMediaObject**. 
+
+#### Add the following attributes and associated types to the CDMediaObject entity. 
+
+| Attribute | Type | Extra Configurations |
+|:------:|:------:|:------:|
+| imageData | Binary Data | check **Allows External Storage**, this will save large files outside of Core Data |
+| mediaURL | URI | |
+| caption | String | |
+| createdDate | Date | |
+| id | String | |
+
+Core Data Manager class. This class will be used for persisting (saving and retriving) the user's generated content. 
+
+<details>
+  <summary><b>CoreDataManager.swift</b></summary> 
+  
+```swift
+class CoreDataManager {
+  private init() {}
+  static let shared = CoreDataManager()
+  
+  // NSManagedObjectContext instance from the AppDelegate
+  private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+  
+  private var mediaObjects = [CDMediaObject]()
+  
+  
+  public func createMediaObject(mediaURL: URL? = nil, imageData: Data) {
+    let mediaObject = CDMediaObject(entity: CDMediaObject.entity(), insertInto: context)
+    mediaObject.createdDate = Date()
+    mediaObject.imageData = imageData
+    mediaObject.mediaURL = mediaURL
+    mediaObject.id = UUID().uuidString
+    do {
+      try context.save()
+    } catch {
+      print("failed to create media object with error: \(error)")
+    }
+  }
+  
+  public func fetchMediaObjects() -> [CDMediaObject] {
+    do {
+      mediaObjects = try context.fetch(CDMediaObject.fetchRequest())
+    } catch {
+      print("failed to fetch media objects with error: \(error)")
+    }
+    return mediaObjects
+  }
+}
+```
+  
+</details> 
 
 
