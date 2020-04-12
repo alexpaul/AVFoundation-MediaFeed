@@ -225,7 +225,9 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
 }
 ```
 
-#### Keep track of selected media in the MediaFeedViewController 
+#### Keep track of the selected media the user choose in the MediaFeedViewController 
+
+Here we will use an enum to keep track of the selected media state
 
 ```swift
 enum MediaSelected {
@@ -287,7 +289,7 @@ We need to set the following **Info.plist** keys:
 2. NSMicrophoneUsageDescription - this key is needed when switching from Photo to Video capture. The user needs to allow access to the microphone while video is being recorded. ```Please allow MediaFeed access to your microphone during video recordings.```
 
 
-## 11. Making a video preview (Welcome AVFoundation)
+## 11. Making a video preview (Welcome to AVFoundation)
 
 When a video is added by the user we want to show a video thumbnail preview of this captured video. We will be using the **AVAssetImageGenerator** class for this. AVAssetImageGenerator is part of the **AVFoundation framework** so we will need to import AVFoundation into our MediaFeedViewController class. 
 
