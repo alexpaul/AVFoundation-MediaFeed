@@ -457,7 +457,7 @@ playRandomVideo(in: headerView)
 
 ## 14. Persisting user generated media content 
 
-There are many ways in which we can choose to persist (save) user generated content in our app, documents directory, Firebase, iCloud....we will use Core Data. If our app gets implemented beyoind MVP in complexity and have will ultimately have object relationships, Core Data will be great in that use case. 
+There are many ways in which we can choose to persist (save) user generated content in our app, documents directory, Firebase, iCloud....we will use Core Data. If our app gets implemented beyond MVP in complexity we will ultimately have object relationships, Core Data will be great in that use case. 
 
 #### Adding the Core Data stack to an existing app. 
 <details>
