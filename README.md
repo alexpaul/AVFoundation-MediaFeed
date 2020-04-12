@@ -529,7 +529,7 @@ Open the MediaFeedDataModel and add an entity named **CDMediaObject**.
 Core Data Manager class. This class will be used for persisting (saving and retriving) the user's generated content. 
 
 <details>
-  <summary>CoreDataManager.swift</summary> 
+  <summary><b>CoreDataManager.swift</b></summary> 
   
 ```swift
 class CoreDataManager {
