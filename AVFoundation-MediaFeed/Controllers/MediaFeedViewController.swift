@@ -112,8 +112,8 @@ extension MediaFeedViewController: UICollectionViewDataSource {
 extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let mediaObject = mediaObjects[indexPath.row]
-    if mediaSelected == .video {
-      guard let mediaURL = mediaObject.mediaURL else { return }
+    if let mediaURL = mediaObject.mediaURL {
+      //guard let mediaURL = mediaObject.mediaURL else { return }
       let player = AVPlayer(url: mediaURL)
       let playerViewController = AVPlayerViewController()
       playerViewController.player = player
@@ -174,7 +174,7 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
           
           
           //let mediaObject = MediaObject(imageData: imageData, mediaURL: mediaURL, caption: nil)
-          let mediaObject = CoreDataManager.shared.createMediaObject(imageData: imageData)
+          let mediaObject = CoreDataManager.shared.createMediaObject(mediaURL: mediaURL, imageData: imageData)
           mediaObjects.append(mediaObject)
           
           
