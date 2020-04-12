@@ -9,9 +9,9 @@ In this lesson we will be building an app that captures video and plays back the
 
 1. Capture video using UIImagePickerController 
 1. Play video using AVPlayerViewController 
-1. Generate video preview usign AVAssetImageGenerator 
+1. Generate video preview using AVAssetImageGenerator 
 1. Play video using a CALayer 
-1. Persist video (here we can use APIs we have seen before: FileManager and documents directory, more recently Core Data) 
+1. Persist video (here we can use persistent APIs we have seen before: FileManager and documents directory or more recently Core Data, video files can also be stored of Firebase Storage) 
 
 ## 1. AVFoundation 
 
@@ -19,23 +19,23 @@ In this lesson we will be building an app that captures video and plays back the
 
 ## 2. Let's begin 
 
-Create a new Xcode project. Our app will be called AVFoundation-MediaFeed. 
+Create a new Xcode project. Our app will be called **AVFoundation-MediaFeed**. 
 
 ## 3. Overview of user interface for the app
 
-The app will be embedded in a UINavigationController. In the navigation bar we will have two UIBarButtonItems, a button for selecting the devices video capture and the second button will retrieve content from the user's media library. 
+The app will be embedded in a UINavigationController. In the navigation bar we will have two UIBarButtonItems, a button for selecting the device's video capture and the second button will retrieve content from the user's photo library. 
 
-We will use a collection view to display user generated content. The collection view will have a supplementary header view that displays the last seen of played content. The cells of the collection view will either display an image of a still image taken or a video preview in the case of the user doing video capture. 
+We will use a collection view to display the user generated content (images and video). The collection view will have a supplementary header view that displays a random video. The cells of the collection view will either display an image of a still image selected or a video preview thumbnail if a video was captured. 
 
 ## 4. ViewController 
 
-Refactor the ViewController and call it **MediaFeedViewController**. Go to the storyboard and embedd the one scene into a UINavigationController. 
+Refactor the default ViewController class name and call it **MediaFeedViewController**. Go to the storyboard and embedd the one scene into a UINavigationController. 
 
-Add two UIBarButtonItem 's to the navigation bar. Select **photo.fill** and **video.fill** respectively from the attributes inspector. 
+Add two UIBarButtonItem 's to the navigation bar. Select **photo.fill** and **video.fill** respectively from the attributes inspector. Those SFSymbols (photo.fill and video.fill) are only supported in iOS 13 and above.
 
 Set the navigation title to **Media Feed** 
 
-Drag in a collection view to the view controller scene and set its constraints to 0 at all safe area edges (top, leading, bottom and trailing) 
+Drag in a collection view to the view controller scene and set its constraints to 0 at all edges (top (safe area), leading, bottom (safe area) and trailing) 
 
 Set the cell's ```reuse identifier``` to **mediaCell** 
 
@@ -43,7 +43,7 @@ As per the cell in the collection view set the size to 340 X 340. We will furthe
 
 Drag in an image view to the cell, set the constraints to 0 all around. Feel free to set a default image on the image view.
 
-The scrolling direction of our collection view will remain vertical. 
+The scrolling direction of our collection view will remain **vertical**. 
 
 We will be using a **section header** on our collection view so set the attribute to the left of the **Accessories** option in the attributes inspector on the collection view. Select the newly added reusable view and give it a reuse identifier of **headerView** 
 
@@ -87,6 +87,8 @@ In this app we do not want automatic cell resizing since we are returning a spec
 ## 5. Supplementary view 
 
 We will be adding a custom header view to our collection view. Create a new file. This file will be a subclass of **UICollectionReusableView** , name the file **HeaderView** 
+
+> UICollectionReusableView - Reusable views are so named because the collection view places them on a reuse queue rather than deleting them when they are scrolled out of the visible bounds. Such a view can then be retrieved and repurposed for a different set of content.
 
 ```swift 
 class HeaderView: UICollectionReusableView {
