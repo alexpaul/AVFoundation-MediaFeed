@@ -144,10 +144,11 @@ extension URL {
   public func videoPreviewImage() -> UIImage? {
     let asset = AVAsset(url: self)
     let assetGenerator = AVAssetImageGenerator(asset: asset)
-    let timeInterval = CMTime(seconds: 1, preferredTimescale: 60)
+    assetGenerator.appliesPreferredTrackTransform = true
+    let timestamp = CMTime(seconds: 1, preferredTimescale: 60)
     var image: UIImage?
     do {
-      let cgImage = try assetGenerator.copyCGImage(at: timeInterval, actualTime: nil)
+      let cgImage = try assetGenerator.copyCGImage(at: timestamp, actualTime: nil)
       image = UIImage(cgImage: cgImage)
     } catch {
       
