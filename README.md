@@ -618,6 +618,104 @@ MediaFeedViewController refactor to add Core Data objects
 MediaCell refactor to add Core Data objects
 ```swift 
 ```
+
+## 15. Deleting an mediaObject 
+
+#### Updated MediaCell
+```swift 
+protocol MediaCellDelegate: AnyObject {
+  func didLongPress(_ mediaCell: MediaCell, mediaObject: CDMediaObject)
+}
+
+class MediaCell: UICollectionViewCell {
+  
+  @IBOutlet weak var mediaImageView: UIImageView!
+  
+  private var mediaObject: CDMediaObject!
+  
+  weak var delegate: MediaCellDelegate?
+  
+  private lazy var longPressGesture: UILongPressGestureRecognizer = {
+    let gesture = UILongPressGestureRecognizer()
+    gesture.addTarget(self, action: #selector(handleLongPress(_:)))
+    return gesture
+  }()
+  
+  private var longPressStarted = false
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    addGestureRecognizer(longPressGesture)
+  }
+  
+  @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+    switch gesture.state {
+    case .began:
+      if longPressStarted { return }
+      longPressStarted = true
+      delegate?.didLongPress(self, mediaObject: mediaObject)
+      print("long press")
+    default:
+      longPressStarted = false
+    }
+  }
+  
+  private func setImage(for mediaObject: CDMediaObject) {
+    if let imageData = mediaObject.imageData {
+      mediaImageView.image = UIImage(data: imageData)
+    }
+  }
+  
+  public func configureCell(for mediaObject: CDMediaObject, mediaSelected: MediaSelected) {
+    self.mediaObject = mediaObject
+    setImage(for: mediaObject)
+    if mediaSelected == .image {
+      //
+    } else {
+      //
+    }
+  }
+}
+````
+
+#### Updated MediaFeedViewController 
+
+Conforming to the MediaCellDelegate 
+
+```swift 
+func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  //
+  cell.delegate = self 
+}
+```
+
+#### Conforming to the MediaCellDelegate 
+
+Before we delete the object we will present an alert to the user and inform them that the delete action cannot be undone. This would be a best practice approach whenever deleting a user generated object.
+
+```swift 
+extension MediaFeedViewController: MediaCellDelegate {
+  func didLongPress(_ mediaCell: MediaCell, mediaObject: CDMediaObject) {
+    let alertController = UIAlertController(title: "Delete Media", message: "Are you sure that you want to delete this item. Action cannot be undone.", preferredStyle: .actionSheet)
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] (alertAction) in
+      self.deleteMediaObject(mediaObject)
+    }
+    alertController.addAction(cancelAction)
+    alertController.addAction(deleteAction)
+    present(alertController, animated: true)
+  }
+  
+  private func deleteMediaObject(_ mediaObject: CDMediaObject) {
+    CoreDataManager.shared.deleteMediaObject(mediaObject)
+    let index = mediaObjects.firstIndex(of: mediaObject)
+    if let index = index {
+      mediaObjects.remove(at: index)
+    }
+  }
+}
+```
+
 ## So much more can be done.....
 
 App is complete and now persists user generated media content. Many places to go from here. AVFoundation and Core Data are huge frameworks in iOS and there is so much more functionality and features of those frameworks. Please feel free to explore and build upon this introductory lesson. 
