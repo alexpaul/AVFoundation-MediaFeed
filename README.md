@@ -312,13 +312,33 @@ extension URL {
 
 #### AVAsset 
 
+> Apple documentation: An AVAsset defines the collective properties of the tracks that comprise the asset. You create an AVAsset by initializing it with a local or remote URL pointing to a media resource, as shown in the following example:
+
+```swift 
+let url: URL = // local or remote Asset URL 
+let asset = AVAsset(url: url)
+```
+
 #### AVAssetImageGenerator 
+
+> Apple docmentation: An object that provides thumbnail or preview images of assets independently of playback.
+
 
 #### CMTime 
 
+CMTime is a Core Media struct for representing a timestamp or duration. 
+
 #### CGImage 
 
+CGImage is a class from Core Graphics and represents an image. 
+
+> Apple documentation: a bitmap image or image mask
+
+
 #### appliesPreferredTrackTransform() 
+
+> Apple documentation: Specifies whether to apply the track matrix, or matrices. when extracting an image from the asset.
+
 
 #### Updated didFinishPickingMediaWithInfo() 
 
@@ -582,5 +602,9 @@ MediaCell refactor to add Core Data objects
 ## So much more can be done.....
 
 App is complete and now persists user generated media content. Many places to go from here. AVFoundation and Core Data are huge frameworks in iOS and there is so much more functionality and features of those frameworks. Please feel free to explore and build upon this introductory lesson. 
+
+#### Additional Resources 
+
+[Media Assets, Playback, and Editing](https://developer.apple.com/documentation/avfoundation/media_assets_playback_and_editing)
 
 
