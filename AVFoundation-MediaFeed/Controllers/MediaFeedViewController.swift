@@ -79,7 +79,7 @@ class MediaFeedViewController: UIViewController {
   
   
   @IBAction func photoLibraryButtonPressed(_ sender: UIBarButtonItem) {
-    imagePickerController.sourceType = .savedPhotosAlbum
+    imagePickerController.sourceType = .photoLibrary
     present(imagePickerController, animated: true)
   }
 }
