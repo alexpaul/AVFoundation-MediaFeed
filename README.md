@@ -455,4 +455,29 @@ As we will be randomly playing a video in the collection view's header view add 
 playRandomVideo(in: headerView)
 ```
 
+## 14. Persisting user generated media content 
+
+There are many ways in which we can choose to persist (save) user generated content in our app, documents directory, Firebase, iCloud....we will use Core Data. If our app gets implemented beyoind MVP in complexity and have will ultimately have object relationships, Core Data will be great in that use case. 
+
+Adding the Core Data stack to an existing app. 
+<details>
+  <summary>Add this Core Data stack to the AppDelegate</summary> 
+```swift 
+```
+</details>
+
+Create a new file and select Data Model in the file type dialog. Name the file **MediaFeedDataModel** 
+
+Open the MediaFeedDataModel and add an entity named **CDMediaObject**. 
+
+Add the following attributes and associated types to the CDMediaObject entity. 
+
+| Attribute | Type |
+|:------:|:------:|
+| imageData | Binary Data? |
+| mediaURL | URI? |
+| caption | String? |
+| createdDate | Date |
+| id | String |
+
 
