@@ -565,6 +565,7 @@ class CoreDataManager {
   
   private var mediaObjects = [CDMediaObject]()
   
+  // create
   public func createMediaObject(mediaURL: URL? = nil, imageData: Data) -> CDMediaObject {
     let mediaObject = CDMediaObject(entity: CDMediaObject.entity(), insertInto: context)
     mediaObject.createdDate = Date()
@@ -579,6 +580,7 @@ class CoreDataManager {
     return mediaObject
   }
   
+  // read
   public func fetchMediaObjects() -> [CDMediaObject] {
     do {
       mediaObjects = try context.fetch(CDMediaObject.fetchRequest())
@@ -586,6 +588,19 @@ class CoreDataManager {
       print("failed to fetch media objects with error: \(error)")
     }
     return mediaObjects
+  }
+  
+  // update
+  
+  
+  // delete
+  public func deleteMediaObject(_ mediaObject: CDMediaObject) {
+    context.delete(mediaObject)
+    do {
+      try context.save()
+    } catch {
+      print("failed to delete object with error: \(error)")
+    }
   }
 }
 ```
