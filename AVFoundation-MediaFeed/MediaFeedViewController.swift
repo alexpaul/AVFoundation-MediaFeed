@@ -49,6 +49,23 @@ class MediaFeedViewController: UIViewController {
     }
   }
   
+  func playRandomVideo(in view: UIView) {
+    let videoURLs  = mediaObjects.compactMap { $0.mediaURL }
+    if let randomURL = videoURLs.randomElement() {
+      let player = AVPlayer(url: randomURL)
+      let playerLayer = AVPlayerLayer(player: player)
+      playerLayer.frame = view.bounds
+      playerLayer.videoGravity = .resizeAspect
+            
+      // remove all layers before adding a new one
+      view.layer.sublayers?.removeAll()
+      
+      view.layer.addSublayer(playerLayer)
+      
+      player.play()
+    }
+  }
+  
   @IBAction func videoButtonPressed(_ sender: UIBarButtonItem) {
     imagePickerController.sourceType = .camera
     present(imagePickerController, animated: true)
@@ -79,6 +96,9 @@ extension MediaFeedViewController: UICollectionViewDataSource {
     guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath) as? HeaderView else {
       fatalError("could not cast to HeaderView")
     }
+    
+    playRandomVideo(in: headerView)
+    
     return headerView
   }
 }
@@ -147,6 +167,7 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
       
       
     default:
+      
       print("unsupported media type")
     }
     picker.dismiss(animated: true)
