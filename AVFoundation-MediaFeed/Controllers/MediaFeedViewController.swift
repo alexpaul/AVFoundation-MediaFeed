@@ -56,9 +56,10 @@ class MediaFeedViewController: UIViewController {
   }
   
   func playRandomVideo(in view: UIView) {
-    let videoURLs  = mediaObjects.compactMap { $0.mediaURL }
-    if let randomURL = videoURLs.randomElement() {
-      let player = AVPlayer(url: randomURL)
+    let videoDataObjects  = mediaObjects.compactMap { $0.videoData }
+    if let videoData = videoDataObjects.randomElement(),
+      let videoURL = videoData.videoURLFromData() {
+      let player = AVPlayer(url: videoURL)
       let playerLayer = AVPlayerLayer(player: player)
       playerLayer.frame = view.bounds
       playerLayer.videoGravity = .resizeAspect
@@ -113,9 +114,9 @@ extension MediaFeedViewController: UICollectionViewDataSource {
 extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let mediaObject = mediaObjects[indexPath.row]
-    if let mediaURL = mediaObject.mediaURL {
-      //guard let mediaURL = mediaObject.mediaURL else { return }
-      let player = AVPlayer(url: mediaURL)
+    if let videoData = mediaObject.videoData,
+      let videoURL = videoData.videoURLFromData() {
+      let player = AVPlayer(url: videoURL)
       let playerViewController = AVPlayerViewController()
       playerViewController.player = player
       present(playerViewController, animated: true) {
@@ -227,6 +228,20 @@ extension MediaFeedViewController: MediaCellDelegate {
     if let index = index {
       mediaObjects.remove(at: index)
     }
+  }
+}
+
+extension Data {
+  // convert Data to a URL
+  public func videoURLFromData() -> URL? {
+    let tmpFileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("video").appendingPathExtension("mp4")
+    do {
+      try self.write(to: tmpFileURL, options: [.atomic])
+      return tmpFileURL
+    } catch {
+      print("failed to write to file url with error: \(error)")
+    }
+    return nil
   }
 }
 

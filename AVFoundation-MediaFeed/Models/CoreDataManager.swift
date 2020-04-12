@@ -21,6 +21,14 @@ class CoreDataManager {
   // create
   public func createMediaObject(mediaURL: URL? = nil, imageData: Data) -> CDMediaObject {
     let mediaObject = CDMediaObject(entity: CDMediaObject.entity(), insertInto: context)
+    if let mediaURL = mediaURL {
+      do {
+        let videoData = try Data(contentsOf: mediaURL)
+        mediaObject.videoData = videoData
+      } catch {
+        print("failed to convert url to data with error: \(error)")
+      }
+    }
     mediaObject.createdDate = Date()
     mediaObject.imageData = imageData
     mediaObject.mediaURL = mediaURL

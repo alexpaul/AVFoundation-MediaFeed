@@ -6,8 +6,10 @@
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="mediaURL" optional="YES" attributeType="URI"/>
+        <attribute name="videoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="videoFilename" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="CDMediaObject" positionX="-54" positionY="-9" width="128" height="118"/>
+        <element name="CDMediaObject" positionX="-54" positionY="-9" width="128" height="148"/>
     </elements>
 </model>
