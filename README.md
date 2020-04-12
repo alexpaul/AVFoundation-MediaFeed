@@ -3,7 +3,7 @@
 
 Introduction to AVFoundation and AVKit frameworks.
 
-In this lesson we will be building an app that captures video and plays back the content in a **CALayer** or the built-in AVPlayerViewController.
+In this lesson we will be building an app that captures video and plays back the content in a **CALayer** or the built-in **AVPlayerViewController**.
 
 ## Objectives 
 
