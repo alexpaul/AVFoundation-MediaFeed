@@ -127,7 +127,7 @@ extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let maxSize: CGSize = UIScreen.main.bounds.size
-    let itemWidth: CGFloat = maxSize.width * 0.80
+    let itemWidth: CGFloat = maxSize.width * 0.90
     let itemHeight: CGFloat = itemWidth
     return CGSize(width: itemWidth, height: itemHeight)
   }

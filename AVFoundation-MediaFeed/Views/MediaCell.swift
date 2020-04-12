@@ -32,6 +32,7 @@ class MediaCell: UICollectionViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
     addGestureRecognizer(longPressGesture)
+    backgroundColor = .systemGroupedBackground
   }
   
   override func prepareForReuse() {
