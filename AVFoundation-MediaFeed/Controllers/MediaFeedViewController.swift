@@ -15,7 +15,7 @@ enum MediaSelected {
 }
 
 class MediaFeedViewController: UIViewController {
-
+  
   @IBOutlet weak var collectionView: UICollectionView!
   
   @IBOutlet weak var videoButton: UIBarButtonItem!
@@ -62,7 +62,7 @@ class MediaFeedViewController: UIViewController {
       let playerLayer = AVPlayerLayer(player: player)
       playerLayer.frame = view.bounds
       playerLayer.videoGravity = .resizeAspect
-            
+      
       // remove all layers before adding a new one
       view.layer.sublayers?.removeAll()
       
@@ -95,6 +95,7 @@ extension MediaFeedViewController: UICollectionViewDataSource {
     }
     let mediaObjet = mediaObjects[indexPath.row]
     cell.configureCell(for: mediaObjet, mediaSelected: mediaSelected)
+    cell.delegate = self
     return cell
   }
   
@@ -206,3 +207,26 @@ extension URL {
     return image
   }
 }
+
+
+extension MediaFeedViewController: MediaCellDelegate {
+  func didLongPress(_ mediaCell: MediaCell, mediaObject: CDMediaObject) {
+    let alertController = UIAlertController(title: "Delete Media", message: "Are you sure that you want to delete this item. Action cannot be undone.", preferredStyle: .actionSheet)
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] (alertAction) in
+      self.deleteMediaObject(mediaObject)
+    }
+    alertController.addAction(cancelAction)
+    alertController.addAction(deleteAction)
+    present(alertController, animated: true)
+  }
+  
+  private func deleteMediaObject(_ mediaObject: CDMediaObject) {
+    CoreDataManager.shared.deleteMediaObject(mediaObject)
+    let index = mediaObjects.firstIndex(of: mediaObject)
+    if let index = index {
+      mediaObjects.remove(at: index)
+    }
+  }
+}
+
