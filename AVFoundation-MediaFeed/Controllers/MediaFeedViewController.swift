@@ -165,7 +165,6 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
         }
       }
       
-      
     default:
       
       print("unsupported media type")
