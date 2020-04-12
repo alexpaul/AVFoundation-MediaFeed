@@ -296,13 +296,14 @@ extension URL {
   public func videoPreviewImage() -> UIImage? {
     let asset = AVAsset(url: self)
     let assetGenerator = AVAssetImageGenerator(asset: asset)
-    let timeInterval = CMTime(seconds: 1, preferredTimescale: 60)
+    assetGenerator.appliesPreferredTrackTransform = true
+    let timestamp = CMTime(seconds: 1, preferredTimescale: 60)
     var image: UIImage?
     do {
-      let cgImage = try assetGenerator.copyCGImage(at: timeInterval, actualTime: nil)
+      let cgImage = try assetGenerator.copyCGImage(at: timestamp, actualTime: nil)
       image = UIImage(cgImage: cgImage)
     } catch {
-      
+      print("failed to generated image with error: \(error)")
     }
     return image
   }
@@ -316,6 +317,8 @@ extension URL {
 #### CMTime 
 
 #### CGImage 
+
+#### appliesPreferredTrackTransform() 
 
 #### Updated didFinishPickingMediaWithInfo() 
 
@@ -377,6 +380,29 @@ class MediaCell: UICollectionViewCell {
       //
     } else {
       //
+    }
+  }
+}
+```
+
+## 12. Playing a video using AVPlayerViewController
+
+AVPlayerViewController is part of AVKit and not AVFoundation. In order to using the AVPlayerViewController we will have to import AVKit in the MediaFeedViewController. 
+
+We will check to see what media selected state our app is in when the user taps on a media object in the collection view. If the state is **.video** then we will present the AVPlayerViewController and automatically start playing the video. 
+
+Implement **didSelectItemAt()** in the collection view delegate extension 
+
+```swift 
+func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  let mediaObject = mediaObjects[indexPath.row]
+  if mediaSelected == .video {
+    guard let mediaURL = mediaObject.mediaURL else { return }
+    let player = AVPlayer(url: mediaURL)
+    let playerViewController = AVPlayerViewController()
+    playerViewController.player = player
+    present(playerViewController, animated: true) {
+      player.play()
     }
   }
 }
