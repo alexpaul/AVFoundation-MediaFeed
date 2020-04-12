@@ -474,7 +474,7 @@ lazy var persistentContainer: NSPersistentContainer = {
      application to it. This property is optional since there are legitimate
      error conditions that could cause the creation of the store to fail.
     */
-    let container = NSPersistentContainer(name: "AVFoundation-MediaFeed")
+    let container = NSPersistentContainer(name: "MediaFeedDataModel")
     container.loadPersistentStores(completionHandler: { (storeDescription, error) in
         if let error = error as NSError? {
             // Replace this implementation with code to handle the error appropriately.
@@ -541,8 +541,7 @@ class CoreDataManager {
   
   private var mediaObjects = [CDMediaObject]()
   
-  
-  public func createMediaObject(mediaURL: URL? = nil, imageData: Data) {
+  public func createMediaObject(mediaURL: URL? = nil, imageData: Data) -> CDMediaObject {
     let mediaObject = CDMediaObject(entity: CDMediaObject.entity(), insertInto: context)
     mediaObject.createdDate = Date()
     mediaObject.imageData = imageData
@@ -553,6 +552,7 @@ class CoreDataManager {
     } catch {
       print("failed to create media object with error: \(error)")
     }
+    return mediaObject
   }
   
   public func fetchMediaObjects() -> [CDMediaObject] {
@@ -567,5 +567,20 @@ class CoreDataManager {
 ```
   
 </details> 
+
+#### Refactoring to add Core Data models
+
+Since we are now added Core Data and associated objects to our app we need to do some refactoring. 
+
+MediaFeedViewController refactor to add Core Data objects
+```swift 
+```
+
+MediaCell refactor to add Core Data objects
+```swift 
+```
+## So much more can be done.....
+
+App is complete and now persists user generated media content. Many places to go from here. AVFoundation and Core Data are huge frameworks in iOS and there is so much more functionality and features of those frameworks. Please feel free to explore and build upon this introductory lesson. 
 
 
