@@ -15,6 +15,7 @@ protocol MediaCellDelegate: AnyObject {
 class MediaCell: UICollectionViewCell {
   
   @IBOutlet weak var mediaImageView: UIImageView!
+  @IBOutlet weak var playButtonIcon: UIImageView!
   
   private var mediaObject: CDMediaObject!
   
@@ -31,6 +32,11 @@ class MediaCell: UICollectionViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
     addGestureRecognizer(longPressGesture)
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    //playButtonIcon.isHidden = false
   }
   
   @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
@@ -51,13 +57,13 @@ class MediaCell: UICollectionViewCell {
     }
   }
   
-  public func configureCell(for mediaObject: CDMediaObject, mediaSelected: MediaSelected) {
+  public func configureCell(for mediaObject: CDMediaObject) {
     self.mediaObject = mediaObject
     setImage(for: mediaObject)
-    if mediaSelected == .image {
-      //
+    if let _ = mediaObject.videoData { // is video
+      playButtonIcon.isHidden = false
     } else {
-      //
+      playButtonIcon.isHidden = true
     }
   }
 }

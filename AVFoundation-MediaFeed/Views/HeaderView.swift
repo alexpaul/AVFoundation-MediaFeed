@@ -12,7 +12,7 @@ class HeaderView: UICollectionReusableView {
         
   override func layoutSubviews() {
     super.layoutSubviews()
-    backgroundColor = .systemYellow
+    backgroundColor = .black
   }
   
 }

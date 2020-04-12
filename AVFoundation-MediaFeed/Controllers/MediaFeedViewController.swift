@@ -95,7 +95,7 @@ extension MediaFeedViewController: UICollectionViewDataSource {
       fatalError("could not dequeue a MediaCell")
     }
     let mediaObjet = mediaObjects[indexPath.row]
-    cell.configureCell(for: mediaObjet, mediaSelected: mediaSelected)
+    cell.configureCell(for: mediaObjet)
     cell.delegate = self
     return cell
   }
