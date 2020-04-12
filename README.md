@@ -512,18 +512,18 @@ func saveContext () {
 
 </details>
 
-Create a new file and select Data Model in the file type dialog. Name the file **MediaFeedDataModel** 
+Create a new file and select Data Model in the file choice template dialog beneath Core Data. Name the file **MediaFeedDataModel** 
 
 Open the MediaFeedDataModel and add an entity named **CDMediaObject**. 
 
 #### Add the following attributes and associated types to the CDMediaObject entity. 
 
-| Attribute | Type |
-|:------:|:------:|
-| imageData | Binary Data? |
-| mediaURL | URI? |
-| caption | String? |
-| createdDate | Date |
-| id | String |
+| Attribute | Type | Extra Configurations |
+|:------:|:------:|:------:|
+| imageData | Binary Data | check **Allows External Storage**, this will save large files outside of Core Data |
+| mediaURL | URI | |
+| caption | String | |
+| createdDate | Date | |
+| id | String | |
 
 
