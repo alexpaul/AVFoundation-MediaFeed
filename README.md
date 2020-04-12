@@ -225,7 +225,9 @@ extension MediaFeedViewController: UIImagePickerControllerDelegate, UINavigation
 }
 ```
 
-#### Keep track of selected media in the MediaFeedViewController 
+#### Keep track of the selected media the user choose in the MediaFeedViewController 
+
+Here we will use an enum to keep track of the selected media state
 
 ```swift
 enum MediaSelected {
@@ -287,7 +289,7 @@ We need to set the following **Info.plist** keys:
 2. NSMicrophoneUsageDescription - this key is needed when switching from Photo to Video capture. The user needs to allow access to the microphone while video is being recorded. ```Please allow MediaFeed access to your microphone during video recordings.```
 
 
-## 11. Making a video preview (Welcome AVFoundation)
+## 11. Making a video preview (Welcome to AVFoundation)
 
 When a video is added by the user we want to show a video thumbnail preview of this captured video. We will be using the **AVAssetImageGenerator** class for this. AVAssetImageGenerator is part of the **AVFoundation framework** so we will need to import AVFoundation into our MediaFeedViewController class. 
 
@@ -563,6 +565,7 @@ class CoreDataManager {
   
   private var mediaObjects = [CDMediaObject]()
   
+  // create
   public func createMediaObject(mediaURL: URL? = nil, imageData: Data) -> CDMediaObject {
     let mediaObject = CDMediaObject(entity: CDMediaObject.entity(), insertInto: context)
     mediaObject.createdDate = Date()
@@ -577,6 +580,7 @@ class CoreDataManager {
     return mediaObject
   }
   
+  // read
   public func fetchMediaObjects() -> [CDMediaObject] {
     do {
       mediaObjects = try context.fetch(CDMediaObject.fetchRequest())
@@ -584,6 +588,19 @@ class CoreDataManager {
       print("failed to fetch media objects with error: \(error)")
     }
     return mediaObjects
+  }
+  
+  // update
+  
+  
+  // delete
+  public func deleteMediaObject(_ mediaObject: CDMediaObject) {
+    context.delete(mediaObject)
+    do {
+      try context.save()
+    } catch {
+      print("failed to delete object with error: \(error)")
+    }
   }
 }
 ```
@@ -601,12 +618,111 @@ MediaFeedViewController refactor to add Core Data objects
 MediaCell refactor to add Core Data objects
 ```swift 
 ```
+
+## 15. Deleting a mediaObject 
+
+#### Updated MediaCell
+```swift 
+protocol MediaCellDelegate: AnyObject {
+  func didLongPress(_ mediaCell: MediaCell, mediaObject: CDMediaObject)
+}
+
+class MediaCell: UICollectionViewCell {
+  
+  @IBOutlet weak var mediaImageView: UIImageView!
+  
+  private var mediaObject: CDMediaObject!
+  
+  weak var delegate: MediaCellDelegate?
+  
+  private lazy var longPressGesture: UILongPressGestureRecognizer = {
+    let gesture = UILongPressGestureRecognizer()
+    gesture.addTarget(self, action: #selector(handleLongPress(_:)))
+    return gesture
+  }()
+  
+  private var longPressStarted = false
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    addGestureRecognizer(longPressGesture)
+  }
+  
+  @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+    switch gesture.state {
+    case .began:
+      if longPressStarted { return }
+      longPressStarted = true
+      delegate?.didLongPress(self, mediaObject: mediaObject)
+      print("long press")
+    default:
+      longPressStarted = false
+    }
+  }
+  
+  private func setImage(for mediaObject: CDMediaObject) {
+    if let imageData = mediaObject.imageData {
+      mediaImageView.image = UIImage(data: imageData)
+    }
+  }
+  
+  public func configureCell(for mediaObject: CDMediaObject, mediaSelected: MediaSelected) {
+    self.mediaObject = mediaObject
+    setImage(for: mediaObject)
+    if mediaSelected == .image {
+      //
+    } else {
+      //
+    }
+  }
+}
+````
+
+#### Updated MediaFeedViewController 
+
+Conforming to the MediaCellDelegate 
+
+```swift 
+func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  //
+  cell.delegate = self 
+}
+```
+
+#### Conforming to the MediaCellDelegate 
+
+Before we delete the object we will present an alert to the user and inform them that the delete action cannot be undone. This would be a best practice approach whenever deleting a user generated object.
+
+```swift 
+extension MediaFeedViewController: MediaCellDelegate {
+  func didLongPress(_ mediaCell: MediaCell, mediaObject: CDMediaObject) {
+    let alertController = UIAlertController(title: "Delete Media", message: "Are you sure that you want to delete this item. Action cannot be undone.", preferredStyle: .actionSheet)
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] (alertAction) in
+      self.deleteMediaObject(mediaObject)
+    }
+    alertController.addAction(cancelAction)
+    alertController.addAction(deleteAction)
+    present(alertController, animated: true)
+  }
+  
+  private func deleteMediaObject(_ mediaObject: CDMediaObject) {
+    CoreDataManager.shared.deleteMediaObject(mediaObject)
+    let index = mediaObjects.firstIndex(of: mediaObject)
+    if let index = index {
+      mediaObjects.remove(at: index)
+    }
+  }
+}
+```
+
 ## So much more can be done.....
 
 App is complete and now persists user generated media content. Many places to go from here. AVFoundation and Core Data are huge frameworks in iOS and there is so much more functionality and features of those frameworks. Please feel free to explore and build upon this introductory lesson. 
 
 #### Additional Resources 
 
-[Media Assets, Playback, and Editing](https://developer.apple.com/documentation/avfoundation/media_assets_playback_and_editing)
+1. [Media Assets, Playback, and Editing](https://developer.apple.com/documentation/avfoundation/media_assets_playback_and_editing)
+2. [StackOverflow - photo library vs saved photos album](https://stackoverflow.com/questions/8233238/whats-the-difference-between-camera-roll-and-photo-library)
 
 
