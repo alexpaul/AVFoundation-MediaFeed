@@ -464,6 +464,8 @@ There are many ways in which we can choose to persist (save) user generated cont
   <summary>Add this Core Data stack to the AppDelegate</summary> 
   
 ```swift 
+import CoreData
+
 // MARK: - Core Data stack
 lazy var persistentContainer: NSPersistentContainer = {
     /*
