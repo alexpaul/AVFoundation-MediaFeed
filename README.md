@@ -607,6 +607,7 @@ App is complete and now persists user generated media content. Many places to go
 
 #### Additional Resources 
 
-[Media Assets, Playback, and Editing](https://developer.apple.com/documentation/avfoundation/media_assets_playback_and_editing)
+1. [Media Assets, Playback, and Editing](https://developer.apple.com/documentation/avfoundation/media_assets_playback_and_editing)
+2. [StackOverflow - photo library vs saved photos album](https://stackoverflow.com/questions/8233238/whats-the-difference-between-camera-roll-and-photo-library)
 
 
