@@ -269,3 +269,29 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
 }
 ```
 
+## 10. Capturing video using UIImagePickerController 
+
+Update the videButtonPressed() method to present the UIImagePickerController. 
+
+```swift 
+@IBAction func videoButtonPressed(_ sender: UIBarButtonItem) {
+  imagePickerController.sourceType = .camera
+  present(imagePickerController, animated: true)
+}
+```
+
+We need to set the following **Info.plist** keys: 
+1. NSCameraUsageDescription - request the user's permission to access the camera. Also a String explaning why you need access is required. ```Please allow MediaFeed access to your camera to add video content to feed.```
+2. NSMicrophoneUsageDescription - this key is needed when switching from Photo to Video capture. The user needs to allow access to the microphone while video is being recorded. ```Please allow MediaFeed access to your microphone during video recordings.```
+
+
+## 11. Making a video preview (Welcome AVFoundation)
+
+When a video is added by the user we want to show a video thumbnail preview of this captured video. We will be using the **AVAssetImageGenerator** class for this. AVAssetImageGenerator is part of the **AVFoundation framework** so we will need to import AVFoundation into our MediaFeedViewController class. 
+
+Implement the method needed to generate this image preview via an extension on the URL class. We are doing so because we will be getting back a URL of the captured video. This URL contains the video content. We will be passing this URL to our method generating the URL and getting back a UIImage. This image will be added to the **MediaCell** 
+
+```swift 
+```
+
+
