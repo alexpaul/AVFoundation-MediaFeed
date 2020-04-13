@@ -37,6 +37,8 @@ class MediaFeedViewController: UIViewController {
   
   private var mediaSelected = MediaSelected.image
   
+  private var player: AVPlayer!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -51,6 +53,13 @@ class MediaFeedViewController: UIViewController {
     fetchMediaObjects()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    if let player = player {
+      player.play()
+    }
+  }
+  
   private func fetchMediaObjects() {
     mediaObjects = CoreDataManager.shared.fetchMediaObjects()
   }
@@ -59,7 +68,7 @@ class MediaFeedViewController: UIViewController {
     let videoDataObjects  = mediaObjects.compactMap { $0.videoData }
     if let videoData = videoDataObjects.randomElement(),
       let videoURL = videoData.videoURLFromData() {
-      let player = AVPlayer(url: videoURL)
+      player = AVPlayer(url: videoURL)
       let playerLayer = AVPlayerLayer(player: player)
       playerLayer.frame = view.bounds
       playerLayer.videoGravity = .resizeAspect
@@ -121,6 +130,7 @@ extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
       playerViewController.player = player
       present(playerViewController, animated: true) {
         player.play()
+        self.player.pause()
       }
     }
   }
