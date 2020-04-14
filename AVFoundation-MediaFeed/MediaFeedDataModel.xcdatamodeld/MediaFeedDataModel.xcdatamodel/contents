@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="CDMediaObject" representedClassName=".CDMediaObject" syncable="YES">
+        <attribute name="caption" optional="YES" attributeType="String"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="videoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+    </entity>
+    <elements>
+        <element name="CDMediaObject" positionX="-63" positionY="-18" width="128" height="118"/>
+    </elements>
 </model>
