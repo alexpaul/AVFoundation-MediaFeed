@@ -6,6 +6,7 @@
 //  Copyright © 2020 Alex Paul. All rights reserved.
 //
 
+
 import UIKit
 
 class MediaCell: UICollectionViewCell {
