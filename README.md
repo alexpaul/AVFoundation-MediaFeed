@@ -620,7 +620,7 @@ class CoreDataManager {
 
 #### Playing back video content from Core Data Binary Data 
 
-Write an extension on Data that will convert a passed in Data object and get back a URL. This URL is need to configure our AVPlayer(url: url) 
+Write an extension on Data that will convert a passed in Data object and get back a URL. This URL is needed to configure our AVPlayer(url: url).
 
 ```swift
 extension Data {
