@@ -20,6 +20,7 @@
 		572C3E1824461C7100938D19 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572C3E1724461C7100938D19 /* CoreDataManager.swift */; };
 		572C3E1B24461D5200938D19 /* CDMediaObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572C3E1924461D5200938D19 /* CDMediaObject+CoreDataClass.swift */; };
 		572C3E1C24461D5200938D19 /* CDMediaObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572C3E1A24461D5200938D19 /* CDMediaObject+CoreDataProperties.swift */; };
+		573ED0DA244751FA004FEE4E /* Data+ConvertToURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573ED0D9244751FA004FEE4E /* Data+ConvertToURL.swift */; };
 		576F85B72444EB57008700BB /* URL+VideoPreviewThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F85B62444EB57008700BB /* URL+VideoPreviewThumbnail.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		572C3E1724461C7100938D19 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		572C3E1924461D5200938D19 /* CDMediaObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDMediaObject+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		572C3E1A24461D5200938D19 /* CDMediaObject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDMediaObject+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		573ED0D9244751FA004FEE4E /* Data+ConvertToURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ConvertToURL.swift"; sourceTree = "<group>"; };
 		576F85B62444EB57008700BB /* URL+VideoPreviewThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+VideoPreviewThumbnail.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +85,7 @@
 				572C3E102446191800938D19 /* MediaFeedDataModel.xcdatamodeld */,
 				570A29E32444C07D00DAA382 /* HeaderView.swift */,
 				576F85B62444EB57008700BB /* URL+VideoPreviewThumbnail.swift */,
+				573ED0D9244751FA004FEE4E /* Data+ConvertToURL.swift */,
 				570A29D32444B9A400DAA382 /* Main.storyboard */,
 				570A29D62444B9A600DAA382 /* Assets.xcassets */,
 				570A29D82444B9A600DAA382 /* LaunchScreen.storyboard */,
@@ -168,6 +171,7 @@
 				570A29E62444C40200DAA382 /* MediaObject.swift in Sources */,
 				570A29D22444B9A400DAA382 /* MediaFeedViewController.swift in Sources */,
 				570A29CE2444B9A400DAA382 /* AppDelegate.swift in Sources */,
+				573ED0DA244751FA004FEE4E /* Data+ConvertToURL.swift in Sources */,
 				570A29E22444C03D00DAA382 /* MediaCell.swift in Sources */,
 				572C3E1C24461D5200938D19 /* CDMediaObject+CoreDataProperties.swift in Sources */,
 				572C3E122446191800938D19 /* MediaFeedDataModel.xcdatamodeld in Sources */,
