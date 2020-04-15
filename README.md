@@ -834,7 +834,7 @@ extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
 }
 ```
 
-## 18. Other topcis 
+## 18. Other topics 
 
 #### Using NSPredicate to filter data 
 
