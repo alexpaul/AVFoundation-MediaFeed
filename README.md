@@ -122,6 +122,12 @@ func collectionView(_ collectionView: UICollectionView, layout collectionViewLay
 }
 ```
 
+#### If you need to register a supplementary view programmactically 
+
+```swift 
+collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView")
+```
+
 ## 6. The model for our app
 
 Creete a new file. It will be a Swift file and name it **MediaObjet** 
