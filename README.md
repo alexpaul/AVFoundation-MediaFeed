@@ -834,6 +834,24 @@ extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
 }
 ```
 
+## 18. Other topcis 
+
+#### Using NSPredicate to filter data 
+
+Here we are search for mediaObjects that contain the work awesome. 
+
+> [cd] ignore cases, ignores diacritics (accents)
+
+```swift 
+let request = CDMediaObject.fetchRequest() as NSFetchRequest<CDMediaObject>
+request.predicate = NSPredicate(format: "caption CONTAINS[cd] %@", "Awesome")
+do {
+  mediaObjects = try context.fetch(request)
+} catch {
+  print("failed to fetch media objects with error: \(error)")
+}
+```
+
 
 ## So much more can be done.....
 
