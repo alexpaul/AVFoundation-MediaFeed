@@ -838,7 +838,7 @@ extension MediaFeedViewController: UICollectionViewDelegateFlowLayout {
 
 #### Using NSPredicate to filter data 
 
-Here we are search for mediaObjects that contain the work awesome. 
+Here we can search for mediaObjects that contain the word ```awesome```. 
 
 > [cd] ignore cases, ignores diacritics (accents)
 
